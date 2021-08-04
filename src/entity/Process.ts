@@ -9,6 +9,6 @@ export class Process {
   @Column("character varying")
   name?: string;
 
-  @OneToMany((type) => Stage, (stage) => stage.processRevision)
+  @OneToMany((type) => Stage, (stage) => stage.process)
   stages?: Stage[];
 }

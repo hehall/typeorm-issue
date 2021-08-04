@@ -11,9 +11,6 @@ export class ProcessTemplate {
   @Column("character varying")
   name?: string;
 
-  @OneToMany(
-    (type) => ProcessTemplateStage,
-    (stage) => stage.processRevisionTemplate
-  )
+  @OneToMany((type) => ProcessTemplateStage, (stage) => stage.processTemplate)
   stages?: ProcessTemplateStage[];
 }

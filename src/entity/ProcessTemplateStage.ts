@@ -23,7 +23,7 @@ export class ProcessTemplateStage {
 
   @ManyToOne((type) => ProcessTemplate)
   @JoinColumn()
-  processRevisionTemplate: ProcessTemplate;
+  processTemplate: ProcessTemplate;
 
   @ManyToOne((type) => GenericStage)
   @JoinColumn()

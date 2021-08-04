@@ -21,7 +21,7 @@ export class Stage {
 
   @ManyToOne((type) => Process)
   @JoinColumn()
-  processRevision: Process;
+  process: Process;
 
   @ManyToOne((type) => GenericStage)
   @JoinColumn()
