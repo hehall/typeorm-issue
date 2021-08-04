@@ -44,20 +44,30 @@ createConnection(defaultSettings)
     process.stages = [stage, stage2];
     await connection.manager.save(process);
 
-    // Get process templates, joining stages and stages.genricStage
+    // Get process templates,
+    // joining (process template) stages and stages.genricStage
     const processTemplates = await connection.manager
       .getRepository(ProcessTemplate)
       .find({
         relations: ["stages", "stages.stageType"],
       });
 
-    console.log(processTemplates[0].stages);
+    console.log("problem here", processTemplates[0].stages);
+
+    // Get processes template stages and its genricStage
+    const processTemplateStages = await connection.manager
+      .getRepository(ProcessTemplateStage)
+      .find({
+        relations: ["stageType"],
+      });
+
+    console.log("this is fine", processTemplateStages);
 
     // Get processes, joining stages and stages.genricStage
     const processes = await connection.manager.getRepository(Process).find({
       relations: ["stages", "stages.stageType"],
     });
 
-    console.log(processes[0].stages);
+    console.log("this is also fine", processes[0].stages);
   })
   .catch((error) => console.log(error));

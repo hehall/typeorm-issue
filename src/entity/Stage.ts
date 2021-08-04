@@ -10,6 +10,8 @@ import { Process } from "./Process";
 
 @Entity()
 export class Stage {
+  // Setting the name of the column for postgres to something else
+  // will make it dissapear when the mixup happens
   @PrimaryGeneratedColumn({ type: "integer", name: "stage_id" })
   id: number;
 
