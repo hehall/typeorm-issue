@@ -8,25 +8,26 @@ import { Stage } from "./entity/Stage";
 
 createConnection(defaultSettings)
   .then(async (connection) => {
-    const prts = new ProcessTemplateStage();
-    prts.name = "some prt stage";
-    prts.templateStageSpecificProp = "some value here";
-    await connection.manager.save(prts);
+    // Setting up objects
+    const pts = new ProcessTemplateStage();
+    pts.name = "some prt stage";
+    pts.templateStageSpecificProp = "some value here";
+    await connection.manager.save(pts);
 
-    const prts2 = new ProcessTemplateStage();
-    prts2.name = "some prt stage 2";
-    prts2.templateStageSpecificProp = "text";
-    await connection.manager.save(prts2);
+    const pts2 = new ProcessTemplateStage();
+    pts2.name = "some prt stage 2";
+    pts2.templateStageSpecificProp = "text";
+    await connection.manager.save(pts2);
 
-    const prts3 = new ProcessTemplateStage();
-    prts3.name = "some prt stage 3";
-    prts3.templateStageSpecificProp = "text";
-    await connection.manager.save(prts3);
+    const pts3 = new ProcessTemplateStage();
+    pts3.name = "some prt stage 3";
+    pts3.templateStageSpecificProp = "text";
+    await connection.manager.save(pts3);
 
-    const prt = new ProcessTemplate();
-    prt.name = "some template";
-    prt.stages = [prts, prts2, prts3];
-    await connection.manager.save(prt);
+    const pt = new ProcessTemplate();
+    pt.name = "some template";
+    pt.stages = [pts, pts2, pts3];
+    await connection.manager.save(pt);
 
     const stage = new Stage();
     stage.name = "some normal stage";
@@ -38,27 +39,25 @@ createConnection(defaultSettings)
     stage2.stageSpecificProp = "test";
     await connection.manager.save(stage2);
 
-    const pr = new Process();
-    pr.name = "some normal template";
-    pr.stages = [stage, stage2];
-    await connection.manager.save(pr);
+    const process = new Process();
+    process.name = "some normal template";
+    process.stages = [stage, stage2];
+    await connection.manager.save(process);
 
-    const processRevisionTemplates = await connection.manager
+    // Get process templates, joining stages and stages.genricStage
+    const processTemplates = await connection.manager
       .getRepository(ProcessTemplate)
       .find({
-        order: { id: "ASC" },
         relations: ["stages", "stages.genericStage"],
       });
 
-    console.log(processRevisionTemplates[0].stages);
+    console.log(processTemplates[0].stages);
 
-    const processRevisions = await connection.manager
-      .getRepository(Process)
-      .find({
-        order: { id: "ASC" },
-        relations: ["stages", "stages.genericStage"],
-      });
+    // Get processes, joining stages and stages.genricStage
+    const processes = await connection.manager.getRepository(Process).find({
+      relations: ["stages", "stages.genericStage"],
+    });
 
-    console.log(processRevisions[0].stages);
+    console.log(processes[0].stages);
   })
   .catch((error) => console.log(error));
