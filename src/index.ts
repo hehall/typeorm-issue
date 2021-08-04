@@ -48,14 +48,14 @@ createConnection(defaultSettings)
     const processTemplates = await connection.manager
       .getRepository(ProcessTemplate)
       .find({
-        relations: ["stages", "stages.genericStage"],
+        relations: ["stages", "stages.stageType"],
       });
 
     console.log(processTemplates[0].stages);
 
     // Get processes, joining stages and stages.genricStage
     const processes = await connection.manager.getRepository(Process).find({
-      relations: ["stages", "stages.genericStage"],
+      relations: ["stages", "stages.stageType"],
     });
 
     console.log(processes[0].stages);

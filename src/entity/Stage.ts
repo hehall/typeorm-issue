@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { GenericStage } from "./GenericStage";
+import { StageType } from "./StageType";
 import { Process } from "./Process";
 
 @Entity()
@@ -23,7 +23,7 @@ export class Stage {
   @JoinColumn()
   process: Process;
 
-  @ManyToOne((type) => GenericStage)
+  @ManyToOne((type) => StageType)
   @JoinColumn()
-  genericStage: GenericStage;
+  stageType: StageType;
 }

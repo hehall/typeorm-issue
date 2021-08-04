@@ -1,5 +1,5 @@
 import { ConnectionOptions } from "typeorm";
-import { GenericStage } from "./src/entity/GenericStage";
+import { StageType } from "./src/entity/StageType";
 import { Process } from "./src/entity/Process";
 import { ProcessTemplate } from "./src/entity/ProcessTemplate";
 import { ProcessTemplateStage } from "./src/entity/ProcessTemplateStage";
@@ -10,7 +10,7 @@ export const entityList = [
   ProcessTemplate,
   ProcessTemplateStage,
   Process,
-  GenericStage,
+  StageType,
 ];
 
 const defaultSettings: ConnectionOptions = {
